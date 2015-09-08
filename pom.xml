@@ -77,7 +77,7 @@
         <version.org.wildfly.client.config>1.0.0.Beta1</version.org.wildfly.client.config>
         <version.org.wildfly.common>1.2.0.Beta1</version.org.wildfly.common>
 
-        <test.level>INFO</test.level>
+        <test.level>DEBUG</test.level>
         <!-- Checkstyle configuration -->
         <linkXRef>false</linkXRef>
 

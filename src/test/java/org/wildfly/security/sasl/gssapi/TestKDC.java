@@ -248,7 +248,8 @@ public class TestKDC {
         Keytab keyTab = Keytab.getInstance();
         keyTab.setEntries(entries);
         try {
-            File keyTabFile = new File(workingDir, keyTabFileName);
+ //           File keyTabFile = new File(workingDir, keyTabFileName);
+            File keyTabFile = new File(keyTabFileName);
             keyTab.write(keyTabFile);
             return keyTabFile.getAbsolutePath();
         } catch (IOException e) {

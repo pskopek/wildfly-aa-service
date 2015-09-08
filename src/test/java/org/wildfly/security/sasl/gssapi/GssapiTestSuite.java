@@ -31,10 +31,9 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    GSSSecurityFactory.class,
-    JdkClientJdkServer.class,
-    JdkClientWildFlyServer.class,
-    WildFlyClientJdkServer.class,
+//    JdkClientJdkServer.class,
+//    JdkClientWildFlyServer.class,
+//    WildFlyClientJdkServer.class,
     WildFlyClientWildFlyServer.class
 })
 public class GssapiTestSuite {
@@ -52,7 +51,8 @@ public class GssapiTestSuite {
         testKdc.startDirectoryService();
         testKdc.startKDC();
         GssapiTestSuite.testKdc = testKdc;
-        serverKeyTab = testKdc.generateKeyTab(BaseGssapiTests.SERVER_KEY_TAB, "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+        serverKeyTab = testKdc.generateKeyTab("/opt/keytab/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+        //serverKeyTab = "/opt/keytab/serverKeyTab";
         log.debug("keytab written to:" + serverKeyTab);
     }
 
