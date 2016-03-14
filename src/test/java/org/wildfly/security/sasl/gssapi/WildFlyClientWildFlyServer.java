@@ -44,7 +44,8 @@ public class WildFlyClientWildFlyServer extends BaseGssapiTests {
     @BeforeClass
     public static void initialise() throws LoginException {
         clientSubject = loginClient();
-        serverSubject = loginServer(GssapiTestSuite.serverKeyTab);
+        //serverSubject = loginServer(GssapiTestSuite.serverKeyTab);
+        serverSubject = loginServer("/opt/serverKeyTab");
     }
 
     @AfterClass

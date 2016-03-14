@@ -251,7 +251,7 @@ public abstract class BaseGssapiTests extends BaseTestCase {
 
         Map<String, String> props = new HashMap<String, String>(baseProps);
         props.put(Sasl.QOP, mode.getQop());
-
+        //props.put("java.security.krb5.conf", "/home/pskopek/dev/wildfly-security/elytron/src/test/resources/krb5.conf");
         return factory.createSaslServer(GSSAPI, "sasl", TEST_SERVER_1, props, new AuthorizeOnlyCallbackHandler());
     }
 

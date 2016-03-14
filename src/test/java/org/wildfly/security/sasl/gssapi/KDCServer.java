@@ -29,43 +29,30 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  * @author <a href="mailto:darran.lofthouse@jboss.com">Darran Lofthouse</a>
  */
-@RunWith(Suite.class)
-@SuiteClasses({
-//    JdkClientJdkServer.class,
-//    JdkClientWildFlyServer.class,
-//    WildFlyClientJdkServer.class,
-    WildFlyClientWildFlyServer.class
-})
-public class GssapiTestSuite {
+public class KDCServer {
 
-    private static Logger log = Logger.getLogger(GssapiTestSuite.class);
+    private static Logger log = Logger.getLogger(KDCServer.class);
 
-    private static TestKDC testKdc;
+    static TestKDC testKdc;
     static String serverKeyTab;
 
-    @BeforeClass
-    public static void startServers() {
+    public static void main(String[] args) {
         log.debug("Start");
 
-        /*
         TestKDC testKdc = new TestKDC();
         testKdc.startDirectoryService();
         testKdc.startKDC();
-        GssapiTestSuite.testKdc = testKdc;
-        //serverKeyTab = testKdc.generateKeyTab("/opt/keytab/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
-        */
-        serverKeyTab = "/opt/keytab/serverKeyTab";
-        //log.debug("keytab written to:" + serverKeyTab);
+        KDCServer.testKdc = testKdc;
+        serverKeyTab = testKdc.generateKeyTab("/opt/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+        //serverKeyTab = "/opt/keytab/serverKeyTab";
+        log.debug("keytab written to:" + serverKeyTab);
     }
 
-    @AfterClass
     public static void stopServers() {
-/*
         if (testKdc != null) {
             testKdc.stopAll();
             testKdc = null;
         }
-*/
     }
 
 }

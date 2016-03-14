@@ -67,10 +67,11 @@ class GssapiClient extends AbstractGssapiMechanism implements SaslClient {
 
         String acceptorNameString = protocol + "@" + serverName;
         log.tracef("Acceptor Name '%s'", acceptorNameString);
-        final GSSName acceptorName;
+        GSSName acceptorName;
         try {
             // The client can use other name types but this should be added to the config.
             acceptorName = manager.createName(acceptorNameString, GSSName.NT_HOSTBASED_SERVICE, KERBEROS_V5);
+            //acceptorName = acceptorName.canonicalize(KERBEROS_V5);
         } catch (GSSException e) {
             throw log.mechUnableToCreateNameForAcceptor(getMechanismName(), e).toSaslException();
         }
