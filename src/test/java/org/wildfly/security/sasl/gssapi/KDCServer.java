@@ -18,11 +18,6 @@
 package org.wildfly.security.sasl.gssapi;
 
 import org.jboss.logging.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test suite to run all GSSAPI tests to allow various permutations of mechanism interaction to be verified.
@@ -35,6 +30,7 @@ public class KDCServer {
 
     static TestKDC testKdc;
     static String serverKeyTab;
+    static String clientKeyTab;
 
     public static void main(String[] args) {
         log.debug("Start");
@@ -44,6 +40,7 @@ public class KDCServer {
         testKdc.startKDC();
         KDCServer.testKdc = testKdc;
         serverKeyTab = testKdc.generateKeyTab("/opt/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+        clientKeyTab = testKdc.generateKeyTab("/opt/clientKeyTab", "jduke@WILDFLY.ORG", "theduke");
         //serverKeyTab = "/opt/keytab/serverKeyTab";
         log.debug("keytab written to:" + serverKeyTab);
     }

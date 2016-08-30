@@ -34,6 +34,7 @@ import org.ietf.jgss.GSSException;
 import org.ietf.jgss.GSSManager;
 import org.ietf.jgss.GSSName;
 import org.ietf.jgss.MessageProp;
+import org.ietf.jgss.Oid;
 import org.jboss.logging.Logger;
 import org.wildfly.common.Assert;
 import org.wildfly.security._private.ElytronMessages;
@@ -92,6 +93,8 @@ class GssapiClient extends AbstractGssapiMechanism implements SaslClient {
 
         final GSSContext gssContext;
         try {
+//            GSSName userName = manager.createName("jduke", GSSName.NT_USER_NAME, KERBEROS_V5);
+//            credential = manager.createCredential(userName, GSSContext.INDEFINITE_LIFETIME, KERBEROS_V5, GSSCredential.INITIATE_ONLY);
             gssContext = manager.createContext(acceptorName, KERBEROS_V5, credential, GSSContext.INDEFINITE_LIFETIME);
         } catch (GSSException e) {
             throw log.mechUnableToCreateGssContext(getMechanismName(), e).toSaslException();

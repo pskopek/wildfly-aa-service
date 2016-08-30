@@ -69,6 +69,7 @@ class GssapiServer extends AbstractGssapiMechanism implements SaslServer {
         GSSContext gssContext = null;
         try {
             GSSName ourName = manager.createName(localName, GSSName.NT_HOSTBASED_SERVICE, KERBEROS_V5);
+//            GSSName ourName = manager.createName(localName, new Oid("1.2.840.113554.1.2.2.1"), KERBEROS_V5);
             GSSCredential ourCredential = manager.createCredential(ourName, GSSContext.INDEFINITE_LIFETIME, KERBEROS_V5,
                     GSSCredential.ACCEPT_ONLY);
 
@@ -232,7 +233,11 @@ class GssapiServer extends AbstractGssapiMechanism implements SaslServer {
 
                 final String authenticationId;
                 try {
-                    authenticationId = gssContext.getSrcName().toString();
+                    if (gssContext.isEstablished() || gssContext.isProtReady()) {
+                        authenticationId = gssContext.getSrcName().toString();
+                    } else {
+                        authenticationId = ""; // TODO: wrong
+                    }
                 } catch (GSSException e) {
                     throw log.mechUnableToDeterminePeerName(getMechanismName(), e).toSaslException();
                 }

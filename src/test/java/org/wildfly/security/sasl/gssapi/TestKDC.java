@@ -257,4 +257,35 @@ public class TestKDC {
         }
     }
 
+    public String generateKeyTab(String keyTabFileName, String principal, String password, String principal1, String password1) {
+        log.debug("Generating keytab: " + keyTabFileName);
+        List<KeytabEntry> entries = new ArrayList<>();
+        KerberosTime ktm = new KerberosTime();
+
+        for (Map.Entry<EncryptionType, EncryptionKey> keyEntry : KerberosKeyFactory.getKerberosKeys(principal, password)
+                .entrySet()) {
+            EncryptionKey key = keyEntry.getValue();
+            log.debug("Adding key=" + key);
+            entries.add(new KeytabEntry(principal, KerberosPrincipal.KRB_NT_PRINCIPAL, ktm, (byte) key.getKeyVersion(), key));
+        }
+
+        for (Map.Entry<EncryptionType, EncryptionKey> keyEntry : KerberosKeyFactory.getKerberosKeys(principal1, password1)
+                .entrySet()) {
+            EncryptionKey key = keyEntry.getValue();
+            log.debug("Adding key=" + key);
+            entries.add(new KeytabEntry(principal1, KerberosPrincipal.KRB_NT_PRINCIPAL, ktm, (byte) key.getKeyVersion(), key));
+        }
+
+        Keytab keyTab = Keytab.getInstance();
+        keyTab.setEntries(entries);
+        try {
+            //           File keyTabFile = new File(workingDir, keyTabFileName);
+            File keyTabFile = new File(keyTabFileName);
+            keyTab.write(keyTabFile);
+            return keyTabFile.getAbsolutePath();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot create keytab: ", e);
+        }
+    }
+
 }

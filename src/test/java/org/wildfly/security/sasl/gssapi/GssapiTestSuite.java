@@ -54,7 +54,7 @@ public class GssapiTestSuite {
         GssapiTestSuite.testKdc = testKdc;
         //serverKeyTab = testKdc.generateKeyTab("/opt/keytab/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
         */
-        serverKeyTab = "/opt/keytab/serverKeyTab";
+        serverKeyTab = "/opt/serverKeyTab";
         //log.debug("keytab written to:" + serverKeyTab);
     }
 

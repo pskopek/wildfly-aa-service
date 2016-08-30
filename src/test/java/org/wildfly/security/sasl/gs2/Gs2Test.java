@@ -109,7 +109,7 @@ public class Gs2Test extends BaseTestCase {
         serverKeyTab = testKdc.generateKeyTab(SERVER_KEY_TAB, "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
         log.debug("keytab written to:" + serverKeyTab);
 
-        clientSubject = loginClient();
+        clientSubject = loginClient(null);
         serverSubject = loginServer(serverKeyTab);
     }
 

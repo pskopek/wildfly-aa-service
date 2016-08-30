@@ -72,7 +72,7 @@ public abstract class BaseGssapiTests extends BaseTestCase {
     private static final String QOP_AUTH_CONF = "auth-conf";
 
 //    static final String SERVER_KEY_TAB = "serverKeyTab";
-    static final String SERVER_KEY_TAB = "/opt/keytab/serverKeyTab";
+    static final String SERVER_KEY_TAB = "/opt/serverKeyTab";
 
     /*
      * A pair of tests just to verify that a Subject can be obtained, in the event of a failure if these tests are failing focus
@@ -87,7 +87,7 @@ public abstract class BaseGssapiTests extends BaseTestCase {
 
     //@Test
     public void obtainClientSubject() throws Exception {
-        Subject subject = loginClient();
+        Subject subject = loginClient("/opt/clientKeyTab");
         assertNotNull(subject);
     }
 
@@ -131,7 +131,7 @@ public abstract class BaseGssapiTests extends BaseTestCase {
             assertTrue(client.isComplete());
             assertTrue(server.isComplete());
             assertEquals("Authorization ID", "jduke@WILDFLY.ORG", server.getAuthorizationID());
-
+            System.out.println("Server Authorization ID = " + server.getAuthorizationID());
             assertEquals("Server QOP", mode.getQop(), server.getNegotiatedProperty(Sasl.QOP));
             assertEquals("Client QOP", mode.getQop(), client.getNegotiatedProperty(Sasl.QOP));
 

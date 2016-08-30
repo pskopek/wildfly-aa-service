@@ -48,9 +48,9 @@ public class JaasUtil {
 
     private static final boolean IS_IBM = System.getProperty("java.vendor").contains("IBM");
 
-    public static Subject loginClient() throws LoginException {
+    public static Subject loginClient(String keyTabFile) throws LoginException {
         log.debug("loginClient");
-        return login("jduke", "theduke".toCharArray(), false, null);
+        return login("jduke", "theduke".toCharArray(), false, keyTabFile);
     }
 
     public static Subject loginServer(String keyTabFile) throws LoginException {
@@ -65,7 +65,7 @@ public class JaasUtil {
         if (server) {
             config = createGssProxyConfiguration(userName, keyTabFile);
         } else {
-            config = createJaasConfiguration(false);
+            config = createJaasConfiguration(false, keyTabFile);
         }
         LoginContext lc = new LoginContext("KDC", theSubject, cbh, config);
         lc.login();
@@ -73,7 +73,7 @@ public class JaasUtil {
         return theSubject;
     }
 
-    private static Configuration createJaasConfiguration(final boolean server) {
+    private static Configuration createJaasConfiguration(final boolean server, final String keyTabFile) {
         return new Configuration() {
 
             @Override
@@ -92,6 +92,10 @@ public class JaasUtil {
                     options.put("credsType", server ? "acceptor" : "initiator");
                     entries[0] = new AppConfigurationEntry("com.ibm.security.auth.module.Krb5LoginModule", REQUIRED, options);
                 } else {
+                    //options.put("principal", "jduke");
+                    //options.put("useKeyTab", "true");
+                    //options.put("keyTab", keyTabFile);
+                    //options.put("doNotPrompt", "true");
                     options.put("storeKey", "true");
                     options.put("isInitiator", server ? "false" : "true");
                     entries[0] = new AppConfigurationEntry("com.sun.security.auth.module.Krb5LoginModule", REQUIRED, options);

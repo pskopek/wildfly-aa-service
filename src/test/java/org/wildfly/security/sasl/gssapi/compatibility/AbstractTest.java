@@ -118,7 +118,7 @@ public abstract class AbstractTest {
         serverKeyTab = testKdc.generateKeyTab(SERVER_KEY_TAB, "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
         log.debug("keytab written to:" + serverKeyTab);
 
-        clientSubject = JaasUtil.loginClient();
+        clientSubject = JaasUtil.loginClient("/opt/clientKeyTab");
         serverSubject = JaasUtil.loginServer(serverKeyTab);
 
     }
