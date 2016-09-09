@@ -35,11 +35,12 @@ public class KDCServer {
     public static void main(String[] args) {
         log.debug("Start");
 
-        TestKDC testKdc = new TestKDC();
+        TestKDC testKdc = new TestKDC(true);
         testKdc.startDirectoryService();
         testKdc.startKDC();
         KDCServer.testKdc = testKdc;
-        serverKeyTab = testKdc.generateKeyTab("/opt/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+//        serverKeyTab = testKdc.generateKeyTab("/opt/serverKeyTab", "sasl/test_server_1@WILDFLY.ORG", "servicepwd");
+        serverKeyTab = testKdc.generateKeyTab("/opt/serverKeyTab", "HTTP/keycloak_server@WILDFLY.ORG", "keycloakservicepwd");
         clientKeyTab = testKdc.generateKeyTab("/opt/clientKeyTab", "jduke@WILDFLY.ORG", "theduke");
         //serverKeyTab = "/opt/keytab/serverKeyTab";
         log.debug("keytab written to:" + serverKeyTab);

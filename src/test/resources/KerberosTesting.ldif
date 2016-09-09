@@ -47,6 +47,19 @@ userPassword: servicepwd
 krb5PrincipalName: sasl/test_server_2@WILDFLY.ORG
 krb5KeyVersionNumber: 0
 
+dn: uid=keycloak,ou=Users,dc=wildfly,dc=org
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: krb5principal
+objectClass: krb5kdcentry
+cn: http
+sn: Service
+uid: keycloak
+userPassword: keycloakservicepwd
+krb5PrincipalName: HTTP/localhost@WILDFLY.ORG
+krb5KeyVersionNumber: 0
+
 dn: uid=jduke,ou=Users,dc=wildfly,dc=org
 objectClass: top
 objectClass: person
